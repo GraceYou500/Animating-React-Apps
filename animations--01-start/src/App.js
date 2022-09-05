@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Transition } from 'react-transition-group';
 
 import './App.css';
 import Modal from './components/Modal/Modal';
@@ -8,6 +9,7 @@ import List from './components/List/List';
 class App extends Component {
   state = {
     modalIsOpen: false,
+    showBlock: false,
   };
 
   showModal = () => {
@@ -22,6 +24,38 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React Animations</h1>
+        <button
+          className="Button"
+          onClick={() =>
+            this.setState(prevState => ({
+              showBlock: !prevState.showBlock,
+            }))
+          }
+        >
+          Toggle
+        </button>
+        <Transition
+          in={this.state.showBlock}
+          timeout={1000}
+          mountOnEnter
+          // if in property is true, add the wrapped element on DOM
+          unmountOnExit
+        >
+          {/* only in props is true, the div can be rendered. */}
+          {state => (
+            <div
+              style={{
+                backgroundColor: 'red',
+                width: 100,
+                height: 100,
+                margin: 'auto',
+                transition: 'opacity 1s ease-out',
+                opacity: state === 'exiting' ? 0 : 1,
+              }}
+            />
+          )}
+        </Transition>
+
         {this.state.modalIsOpen ? (
           <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
         ) : null}
