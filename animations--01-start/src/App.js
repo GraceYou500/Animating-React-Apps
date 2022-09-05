@@ -40,6 +40,12 @@ class App extends Component {
           mountOnEnter
           // if in property is true, add the wrapped element on DOM
           unmountOnExit
+          onEnter={() => console.log('onEnter')} // before entering the modal.
+          onEntering={() => console.log('onEntering')}
+          onEntered={() => console.log('onEntered')}
+          onExit={() => console.log('onExit')}
+          onExiting={() => console.log('onExiting')}
+          onExited={() => console.log('onExited')}
         >
           {/* only in props is true, the div can be rendered. */}
           {state => (
